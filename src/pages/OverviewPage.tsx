@@ -101,6 +101,7 @@ export function OverviewPage() {
 
   const [symbolText, setSymbolText] = useState(defaultSymbols)
   const [form, setForm] = useState<BacktestConfig>(defaultForm)
+  const [showSpinningUpStatus, setShowSpinningUpStatus] = useState(false)
   const [strategyCode, setStrategyCode] = useState<string>(() => localStorage.getItem(strategyCodeStorageKey) ?? defaultStrategyCode)
   const [strategyParams, setStrategyParams] = useState<Record<string, unknown>>(() => {
     const raw = localStorage.getItem(strategyParamsStorageKey)
@@ -122,6 +123,20 @@ export function OverviewPage() {
   useEffect(() => {
     localStorage.setItem(strategyParamsStorageKey, JSON.stringify(strategyParams))
   }, [strategyParams])
+
+  useEffect(() => {
+    if (status === 'running' && progressPct <= 0) {
+      const timeoutId = window.setTimeout(() => {
+        setShowSpinningUpStatus(true)
+      }, 1000)
+      return () => {
+        window.clearTimeout(timeoutId)
+      }
+    }
+
+    setShowSpinningUpStatus(false)
+    return undefined
+  }, [status, progressPct])
 
   const submittedConfig = useMemo<BacktestConfig>(
     () => ({
@@ -218,7 +233,7 @@ export function OverviewPage() {
               Reset
             </button>
             <div className="status-pill">
-              Status: <strong>{status.toUpperCase()}</strong>
+              Status: <strong>{showSpinningUpStatus ? 'SPINNING UP BACKEND' : status.toUpperCase()}</strong>
               {status === 'running' ? ` (${progressPct.toFixed(0)}% @ ${progressDate || '-'})` : ''}
             </div>
           </div>
