@@ -1,6 +1,7 @@
 # Quant Backtesting Lab
 
 ### Live app: [quant-backtest-lab.onrender.com](https://quant-backtest-lab.onrender.com)
+<img width="1898" height="1375" alt="Screenshot 2026-02-24 at 1 37 28 AM" src="https://github.com/user-attachments/assets/f84d23b2-d04b-4286-8091-e1b440f68846" />
 
 A portfolio-oriented quant backtesting project with:
 
