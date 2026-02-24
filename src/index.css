@@ -1637,6 +1637,16 @@ body {
   color: var(--text-secondary);
 }
 
+.setup-panel {
+  display: flex;
+  flex-direction: column;
+}
+
+.setup-status-footer {
+  margin-top: auto;
+  padding-top: 0.65rem;
+}
+
 .python-status-message {
   color: var(--text-primary);
 }

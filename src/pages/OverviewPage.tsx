@@ -193,7 +193,7 @@ export function OverviewPage() {
   return (
     <div className="stack">
       <section className="overview-top-grid">
-        <section className="panel">
+        <section className="panel setup-panel">
           <div className="panel-title">Backtest Setup</div>
           <div className="run-grid">
             <label className="field">
@@ -237,15 +237,17 @@ export function OverviewPage() {
               {status === 'running' ? ` (${progressPct.toFixed(0)}% @ ${progressDate || '-'})` : ''}
             </div>
           </div>
-          <div className="python-status">
-            Python:{' '}
-            <strong className={pythonExecution?.succeeded === false ? 'neg' : 'pos'}>
-              {pythonExecution ? `${pythonExecution.succeeded ? 'ok' : 'failed'}${pythonExecution.usedFallback ? ' (fallback)' : ''}` : 'pending'}
-            </strong>
-            {pythonExecution?.message ? <span className="python-status-message"> — {pythonExecution.message}</span> : null}
+          <div className="setup-status-footer">
+            <div className="python-status">
+              Python:{' '}
+              <strong className={pythonExecution?.succeeded === false ? 'neg' : 'pos'}>
+                {pythonExecution ? `${pythonExecution.succeeded ? 'ok' : 'failed'}${pythonExecution.usedFallback ? ' (fallback)' : ''}` : 'pending'}
+              </strong>
+              {pythonExecution?.message ? <span className="python-status-message"> — {pythonExecution.message}</span> : null}
+            </div>
+            {pythonExecution?.stderrSnippet ? <div className="error-text">{pythonExecution.stderrSnippet}</div> : null}
+            {errorMessage ? <div className="error-text">{errorMessage}</div> : null}
           </div>
-          {pythonExecution?.stderrSnippet ? <div className="error-text">{pythonExecution.stderrSnippet}</div> : null}
-          {errorMessage ? <div className="error-text">{errorMessage}</div> : null}
         </section>
 
         <section className="metrics-stack">
