@@ -11,10 +11,12 @@ export function MetricCard({
   tone = 'neutral',
   helperText,
 }: MetricCardProps) {
+  const resolvedTone = value === '-' ? 'neutral' : tone
+
   return (
     <article className="metric-card">
       <div className="metric-label">{label}</div>
-      <div className={`metric-value tone-${tone}`}>{value}</div>
+      <div className={`metric-value tone-${resolvedTone}`}>{value}</div>
       {helperText ? <div className="metric-subtitle">{helperText}</div> : null}
     </article>
   )

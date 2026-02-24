@@ -14,6 +14,8 @@ type ReturnsHistogramProps = {
   dailyReturns: ReturnPoint[]
 }
 
+const MONOSPACE_FONT_FAMILY = '"IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, monospace'
+
 function buildBins(dailyReturns: ReturnPoint[]): BinPoint[] {
   if (dailyReturns.length === 0) {
     return []
@@ -51,11 +53,11 @@ export function ReturnsHistogram({ dailyReturns }: ReturnsHistogramProps) {
         <BarChart data={data}>
           <CartesianGrid stroke="#12324f" strokeDasharray="2 4" />
           <XAxis dataKey="bucket" hide />
-          <YAxis stroke="#8bbde1" tick={{ fontSize: 11 }} />
+          <YAxis stroke="#8bbde1" tick={{ fontSize: 11, fontFamily: MONOSPACE_FONT_FAMILY }} />
           <Tooltip
-            contentStyle={{ backgroundColor: "rgb(13, 20, 36)", border: "1px solid rgb(26, 37, 64)", borderRadius: 8 }}
-            labelStyle={{ color: "#7c9cb8" }}
-            itemStyle={{ color: "#e8f0fe" }}
+            contentStyle={{ backgroundColor: "rgb(13, 20, 36)", border: "1px solid rgb(26, 37, 64)", borderRadius: 8, fontFamily: MONOSPACE_FONT_FAMILY }}
+            labelStyle={{ color: "#7c9cb8", fontFamily: MONOSPACE_FONT_FAMILY }}
+            itemStyle={{ color: "#e8f0fe", fontFamily: MONOSPACE_FONT_FAMILY }}
             cursor={{ stroke: "#355077", strokeWidth: 1 }}
           />
           <Bar dataKey="count" fill="#9d5cff" isAnimationActive={false} />

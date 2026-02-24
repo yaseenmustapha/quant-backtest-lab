@@ -9,6 +9,8 @@ type DrawdownChartProps = {
   data: DrawdownPoint[]
 }
 
+const MONOSPACE_FONT_FAMILY = '"IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, monospace'
+
 export function DrawdownChart({ data }: DrawdownChartProps) {
   return (
     <div className="panel chart-panel">
@@ -22,16 +24,16 @@ export function DrawdownChart({ data }: DrawdownChartProps) {
             </linearGradient>
           </defs>
           <CartesianGrid stroke="#12324f" strokeDasharray="2 4" />
-          <XAxis dataKey="date" minTickGap={40} stroke="#8bbde1" tick={{ fontSize: 11 }} />
+          <XAxis dataKey="date" minTickGap={40} stroke="#8bbde1" tick={{ fontSize: 11, fontFamily: MONOSPACE_FONT_FAMILY }} />
           <YAxis
             stroke="#8bbde1"
-            tick={{ fontSize: 11 }}
+            tick={{ fontSize: 11, fontFamily: MONOSPACE_FONT_FAMILY }}
             tickFormatter={(v: number) => `${(v * 100).toFixed(0)}%`}
           />
           <Tooltip
-            contentStyle={{ backgroundColor: "rgb(13, 20, 36)", border: "1px solid rgb(26, 37, 64)", borderRadius: 8 }}
-            labelStyle={{ color: "#7c9cb8" }}
-            itemStyle={{ color: "#e8f0fe" }}
+            contentStyle={{ backgroundColor: "rgb(13, 20, 36)", border: "1px solid rgb(26, 37, 64)", borderRadius: 8, fontFamily: MONOSPACE_FONT_FAMILY }}
+            labelStyle={{ color: "#7c9cb8", fontFamily: MONOSPACE_FONT_FAMILY }}
+            itemStyle={{ color: "#e8f0fe", fontFamily: MONOSPACE_FONT_FAMILY }}
             cursor={{ stroke: "#355077", strokeWidth: 1 }}
             formatter={(value) => {
               const numeric = typeof value === 'number' ? value : 0

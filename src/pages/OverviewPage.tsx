@@ -250,11 +250,11 @@ export function OverviewPage() {
 
         <section className="metrics-stack">
           <div className="metrics-grid top-metrics">
-            <MetricCard label="Sharpe Ratio" value={fmtNum(metrics?.sharpe ?? 0, 3)} helperText="ann. risk-adjusted" tone="info" />
+            <MetricCard label="Sharpe Ratio" value={fmtNum(metrics?.sharpe, 3)} helperText="ann. risk-adjusted" tone="info" />
             <MetricCard label="Ann. Return" value={fmtSignedPct(stats.annualReturn)} helperText="since inception" tone={stats.annualReturn >= 0 ? 'good' : 'bad'} />
-            <MetricCard label="Ann. Std Dev" value={fmtPct(metrics?.annualizedVolatility ?? 0)} helperText="annualized vol" />
+            <MetricCard label="Ann. Std Dev" value={fmtPct(metrics?.annualizedVolatility)} helperText="annualized vol" />
             <MetricCard label="Max Drawdown" value={fmtSignedPct(latestDrawdown)} helperText="peak to trough" tone={latestDrawdown >= -0.2 ? 'good' : 'bad'} />
-            <MetricCard label="Hit Rate" value={fmtPct(metrics?.hitRate ?? 0)} helperText="% days positive" tone="info" />
+            <MetricCard label="Hit Rate" value={fmtPct(metrics?.hitRate)} helperText="% days positive" tone="info" />
           </div>
           <div className="metrics-grid top-metrics">
             <MetricCard label="Sortino Ratio" value={fmtNum(stats.sortinoRatio)} helperText="downside-adjusted" tone={stats.sortinoRatio >= 0 ? 'good' : 'bad'} />
@@ -321,7 +321,7 @@ export function OverviewPage() {
               {additionalStats.map((item) => (
                 <div key={item.label}>
                   <span>{item.label}</span>
-                  <strong className={`tone-${item.tone}`}>{item.value}</strong>
+                  <strong className={`tone-${item.value === '-' ? 'neutral' : item.tone}`}>{item.value}</strong>
                 </div>
               ))}
             </div>
