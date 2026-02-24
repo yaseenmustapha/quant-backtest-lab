@@ -10,10 +10,13 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("frontend", policy =>
         policy
+            .WithOrigins(
+                "http://localhost:5173",
+                "https://quant-backtest-lab.onrender.com"
+            )
             .AllowAnyHeader()
             .AllowAnyMethod()
-            .AllowCredentials()
-            .SetIsOriginAllowed(origin => origin.StartsWith("http://localhost:")));
+            .AllowCredentials());
 });
 
 builder.Services.AddHttpClient<MarketDataService>();
