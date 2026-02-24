@@ -1,9 +1,12 @@
 # Quant Backtesting Lab
 
+### Live app: [quant-backtest-lab.onrender.com](https://quant-backtest-lab.onrender.com)
+
 A portfolio-oriented quant backtesting project with:
 
 - React + TypeScript frontend
 - C# ASP.NET Core backend
+- Python strategy execution with user-authored code and dynamic custom params
 - Real historical US equities data from free Stooq CSV endpoints
 - WebSocket streaming via SignalR for live run progress, charts, and metrics
 
@@ -29,9 +32,8 @@ A portfolio-oriented quant backtesting project with:
 ## Prerequisites
 
 - Bun (or npm/pnpm, but repo is currently using Bun lockfile)
-- .NET SDK 8.0+
-- Python 3.10+
-- Python packages: `pandas` and `numpy`
+- Docker
+- Optional (non-Docker backend dev): .NET SDK 8.0+, Python 3.10+, `pandas`, `numpy`
 
 ## Run frontend
 
@@ -43,18 +45,12 @@ bun dev
 
 Frontend runs on `http://localhost:5173` by default.
 
-## Run backend (with venv + fixed port)
+## Run backend (Docker)
 
 ```bash
 # from repo root
-python3 -m venv .venv
-source .venv/bin/activate
-pip install --upgrade pip
-pip install pandas numpy
-
-cd backend
-dotnet restore
-ASPNETCORE_URLS=http://127.0.0.1:5055 dotnet run
+docker build -t quant-backtest-backend ./backend
+docker run --rm -p 5055:5055 -e PORT=5055 quant-backtest-backend
 ```
 
 Backend will run on `http://127.0.0.1:5055`.
@@ -72,9 +68,8 @@ bun dev
 - Terminal 2 (backend):
 
 ```bash
-source .venv/bin/activate
-cd backend
-ASPNETCORE_URLS=http://127.0.0.1:5055 dotnet run
+docker build -t quant-backtest-backend ./backend
+docker run --rm -p 5055:5055 -e PORT=5055 quant-backtest-backend
 ```
 
 ## API endpoints
@@ -116,8 +111,3 @@ Context passed to `generate_signals`:
 Legacy support is kept for `class Strategy(...): get_signals(...)` and `compute_signals(...)`.
 If custom Python fails, the run fails by default unless `fallbackToBuiltinOnPythonError` is set to `true`.
 
-## Notes
-
-- There is no frontend mock fallback now. If backend data is unavailable, UI fields show `-`.
-- If Python strategy execution fails, the run fails by default (or optionally falls back when `fallbackToBuiltinOnPythonError` is `true`).
-- If you see "address already in use" on startup, stop the process using port `5055` or run backend on a different port and update `.env`.
